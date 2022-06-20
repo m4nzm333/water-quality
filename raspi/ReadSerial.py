@@ -56,7 +56,7 @@ def main():
         # Check jika tidak 3 bagian
         dataFilter = str(received_data).split(';')
         if len(dataFilter) != 3:
-            print('!!! Jumlah Alat tidak lengkap')
+            print('!!! Jumlah Data tidak lengkap')
             continue
         # Cek jika id Alat bukan mulai dari A
         idAlat = dataFilter[0]
@@ -66,31 +66,37 @@ def main():
 
         # check jika bukan float
         phVal = dataFilter[1]
-        phVal = float(phVal)
-        if phVal == False:
+        try:
+            phVal = float(phVal)
+        except:
             print('Nilai ph invalid')
             continue
+
         # cek jika tidak sesuai dengan range
         if phVal <= 0 or phVal >= 14:
             print('Nilai ph invalid')
             continue
 
         # check jika bukan int
-        turbidityVal = dataFilter[1]
-        turbidityVal = int(phVal)
-        if turbidityVal == False:
+        turbidityVal = dataFilter[2]
+        try:
+            turbidityVal = int(turbidityVal)
+        except:
             print('Nilai Turbidity invalid')
             continue
+
         # cek jika tidak sesuai dengan range
         if turbidityVal < 0 or turbidityVal > 3000:
             print('Nilai ph invalid')
             continue
-            
+
         # insert to DB
-        
+
         mycursor = mydb.cursor()
-        mycursor.execute("INSERT INTO ph (id_alat, nilai) VALUES ('{idAlat}', {value})".format(idAlat = idAlat, value = phVal))
-        mycursor.execute("INSERT INTO kekeruhan (id_alat, nilai) VALUES ('{idAlat}', {value})".format(idAlat = idAlat, value = turbidityVal))
+        mycursor.execute("INSERT INTO ph (id_alat, nilai) VALUES ('{idAlat}', {value})".format(
+            idAlat=idAlat, value=phVal))
+        mycursor.execute("INSERT INTO kekeruhan (id_alat, nilai) VALUES ('{idAlat}', {value})".format(
+            idAlat=idAlat, value=turbidityVal))
         mydb.commit()
         mycursor.close()
 
