@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Qualitas Air</title>
+
+    <link rel="stylesheet" href="assets/vendor/bootstrap/bootstrap.min.css">
+    <!-- ArmChart -->
+    <script src="assets/vendor/armchart/amcharts.js"></script>
+    <script src="assets/vendor/armchart/serial.js"></script>
+    <script src="assets/vendor/armchart/xy.js"></script>
+    <script src="assets/vendor/armchart/plugins/responsive/responsive.js"></script>
+    <script src="assets/vendor/armchart/themes/light.js"></script>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-dark text-light">
+            <a class="navbar-brand text-light" href="#">Monitoring Kualitas Air</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon text-light"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link text-light" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container-fluid px-5 bg-white mt-4">
+
+        <section class="hero">
+            <h3 class="text-center">Selamat Datang di <br> Monitoring Kualitas Air Sungai Jeneberang</h3>
+        </section>
+
+        <!-- Card -->
+        <section class="card-counter mt-5">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-6 col-sm-6 col-md-4 my-2">
+                        <div class="card rounded shadow border-primary">
+                            <div class="card-body p-2 text-center">
+                                <h1 class="display-4 text-primary font-weight-bolder">3</h1>
+                                <p class="text-primary font-weight-bolder my-0">Jumlah Alat</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-6 col-sm-6 col-md-4 my-2">
+                        <div class="card rounded shadow border-info">
+                            <div class="card-body p-2 text-center">
+                                <h1 class="display-4 text-info font-weight-bolder">-120</h1>
+                                <p class="text-info font-weight-bolder my-0">Kuat Sinyal A1 (RSSI)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-sm-6 col-md-4 my-2">
+                        <div class="card rounded shadow border-success">
+                            <div class="card-body p-2 text-center">
+                                <h1 class="display-4 text-success font-weight-bolder">-120</h1>
+                                <p class="text-success font-weight-bolder my-0">Kuat Sinyal A2 (RSSI)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-sm-6 col-md-4 my-2">
+                        <div class="card rounded shadow border-danger">
+                            <div class="card-body p-2 text-center">
+                                <h1 class="display-4 text-danger font-weight-bolder">-120</h1>
+                                <p class="text-danger font-weight-bolder my-0">Kuat Sinyal A3 (RSSI)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="realtime-graph">
+            <div class="container">
+                <div id="chartdiv" style="max-width: 1280px; height: 400px;"></div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer position-relative py-3 bg-dark">
+        <div class="container">
+            <span class="text-light">@2022 Agung - All right reserved</span>
+        </div>
+    </footer>
+
+    <script src="assets/vendor/jquery/jquery.min.js"></script>
+    <script src="assets/vendor/popper/popper.min.js"></script>
+    <script src="assets/vendor/bootstrap/bootstrap.min.js"></script>
+    <script src="assets/vendor/moment/moment.min.js"></script>
+    <script>
+        var chartData = [{
+            timestamp: moment().format('YYYY-MM-DD HH:mm:ss'),
+            value: 20.5
+        }];
+
+        
+    </script>
+</body>
+
+</html>
