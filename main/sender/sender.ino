@@ -30,7 +30,7 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RST);
 //915E6 for North America
 #define BAND 433E6
 
-const char *deviceId = "A3";
+const char *deviceId = "A2";
 
 const float ADC_RESOLUTION = 4096.0;
 const int SAMPLE_NUM = 10;
@@ -39,7 +39,7 @@ const int PIN_PH = 36;
 // Kalibrasi saat short
 const float BASE_PH = 1.53;
 // Kalibrasi saat pengukuran
-const float ph1x = 3.26; // Ganti sesuai voltage pada ph = 4.01
+const float ph1x = 3.15; // Ganti sesuai voltage pada ph = 4.01
 const float ph1y = 4.01;
 const float ph2x = 2.33; // Ganti sesuai voltage pada ph = 1.49
 const float ph2y = 9.18;
@@ -91,12 +91,14 @@ float ph (float x) {
 void phMeasure(){
   
   float total = 0;
-  for(int i = 0; i < 40; i++){
+  int totalSample = 50;
+  int baseDelay = 200;
+  for(int i = 0; i < totalSample; i++){
     phVoltage = (3.3 / ADC_RESOLUTION) * analogRead(PIN_PH);
     total += phVoltage;
-    delay(25);
+    delay(baseDelay);
   }
-  phVoltage = total / 40;
+  phVoltage = total / totalSample;
   phSense = ph(phVoltage);
 }
 
