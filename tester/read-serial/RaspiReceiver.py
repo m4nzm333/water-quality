@@ -6,7 +6,7 @@ mydb = mysql.connector.connect(
     user="root",
     password="",
     port="3306",
-    database="water-quality"
+    database="waterquality"
 )
 
 mycursor = mydb.cursor()
