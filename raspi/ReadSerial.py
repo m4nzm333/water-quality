@@ -10,7 +10,7 @@ ser = serial.Serial("/dev/ttyS0", 9600)
 
 def main():
     print("Program Running At")
-    print(str(datetime.datetime.now().strftime("%Y-%m-%d")))
+    print(str(datetime.datetime.now()))
     while True:
         # Bikin folder untuk datalog
         if not os.path.exists('datalog'):
@@ -49,18 +49,27 @@ def main():
         if idAlat[0] != 'A':
             print('!!! Id Alat tidak ditemukan')
             continue
+
         # check jika bukan float
         phVal = dataFilter[1]
         phVal = float(phVal)
         if phVal == False:
-            print('Nilah ph invalid')
+            print('Nilai ph invalid')
+            continue
+        # cek jika tidak sesuai dengan range
+        if phVal <= 0 or phVal >= 14:
+            print('Nilai ph invalid')
             continue
 
         # check jika bukan int
         turbidityVal = dataFilter[1]
         turbidityVal = int(phVal)
         if turbidityVal == False:
-            print('Nilah Turbidity invalid')
+            print('Nilai Turbidity invalid')
+            continue
+        # cek jika tidak sesuai dengan range
+        if turbidityVal < 0 or turbidityVal > 3000:
+            print('Nilai ph invalid')
             continue
 
 
