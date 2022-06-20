@@ -4,13 +4,13 @@ import datetime
 import os
 import sys
 
-print(str(datetime.datetime.now().strftime("%Y-%m-%d")))
-print(str(datetime.datetime.now().year))
-
+# Open port with baud rate
 ser = serial.Serial("/dev/ttyS0", 9600)
-def main():
 
-      # Open port with baud rate
+
+def main():
+    print("Program Running At")
+    print(str(datetime.datetime.now().strftime("%Y-%m-%d")))
     while True:
         # Bikin folder untuk datalog
         if not os.path.exists('datalog'):
@@ -70,6 +70,7 @@ if __name__ == '__main__':
     except KeyboardInterrupt:
         print('Interrupted')
         try:
+            ser.close()
             sys.exit(0)
         except SystemExit:
             os._exit(0)
