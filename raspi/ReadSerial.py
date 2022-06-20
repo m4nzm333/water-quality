@@ -3,14 +3,28 @@ from time import sleep
 import datetime
 import os
 import sys
+import mysql.connector
 
 # Open port with baud rate
 ser = serial.Serial("/dev/ttyS0", 9600)
+
+mydb = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="",
+    port="3306",
+    database="waterquality"
+)
+mycursor = mydb.cursor()
+mycursor.execute("CREATE TABLE IF NOT EXISTS ph ( id_data INT AUTO_INCREMENT PRIMARY KEY, id_alat VARCHAR(3), waktu TIMESTAMP DEFAULT CURRENT_TIMESTAMP, nilai FLOAT);")
+mycursor.execute("CREATE TABLE IF NOT EXISTS kekeruhan ( id_data INT AUTO_INCREMENT PRIMARY KEY, id_alat VARCHAR(3), waktu TIMESTAMP DEFAULT CURRENT_TIMESTAMP, nilai INT);")
+mycursor.close()
 
 
 def main():
     print("Program Running At")
     print(str(datetime.datetime.now()))
+    print(mydb)
     while True:
         # Bikin folder untuk datalog
         if not os.path.exists('datalog'):
@@ -71,6 +85,14 @@ def main():
         if turbidityVal < 0 or turbidityVal > 3000:
             print('Nilai ph invalid')
             continue
+            
+        # insert to DB
+        
+        mycursor = mydb.cursor()
+        mycursor.execute("INSERT INTO ph (id_alat, nilai) VALUES ('{idAlat}', {value})".format(idAlat = idAlat, value = phVal))
+        mycursor.execute("INSERT INTO kekeruhan (id_alat, nilai) VALUES ('{idAlat}', {value})".format(idAlat = idAlat, value = turbidityVal))
+        mydb.commit()
+        mycursor.close()
 
 
 if __name__ == '__main__':
@@ -79,6 +101,7 @@ if __name__ == '__main__':
     except KeyboardInterrupt:
         print('Interrupted')
         try:
+            mydb.close()
             ser.close()
             sys.exit(0)
         except SystemExit:
