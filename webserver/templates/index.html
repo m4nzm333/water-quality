@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Qualitas Air</title>
+
+    <link rel="stylesheet" href="assets/vendor/bootstrap/bootstrap.min.css">
+    <!-- ArmChart -->
+    <script src="assets/vendor/armchart/amcharts.js"></script>
+    <script src="assets/vendor/armchart/serial.js"></script>
+    <!-- <script src="assets/vendor/armchart/xy.js"></script> -->
+    <script src="assets/vendor/armchart/plugins/responsive/responsive.js"></script>
+    <script src="assets/vendor/armchart/themes/light.js"></script>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-dark text-light">
+            <a class="navbar-brand text-light" href="#">Monitoring Kualitas Air</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon text-light"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link text-light" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container-fluid px-5 bg-white mt-4">
+
+        <section class="hero">
+            <h3 class="text-center">Selamat Datang di <br> Monitoring Kualitas Air Sungai Jeneberang</h3>
+        </section>
+
+        <!-- Card -->
+        <section class="card-counter mt-5">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-6 col-sm-6 col-md-4 my-2">
+                        <div class="card rounded shadow border-primary">
+                            <div class="card-body p-2 text-center">
+                                <h1 class="display-4 text-primary font-weight-bolder">3</h1>
+                                <p class="text-primary font-weight-bolder my-0">Jumlah Alat</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-6 col-sm-6 col-md-4 my-2">
+                        <div class="card rounded shadow border-info">
+                            <div class="card-body p-2 text-center">
+                                <h1 class="display-4 text-info font-weight-bolder">-120</h1>
+                                <p class="text-info font-weight-bolder my-0">Kuat Sinyal A1 (RSSI)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-sm-6 col-md-4 my-2">
+                        <div class="card rounded shadow border-success">
+                            <div class="card-body p-2 text-center">
+                                <h1 class="display-4 text-success font-weight-bolder">-120</h1>
+                                <p class="text-success font-weight-bolder my-0">Kuat Sinyal A2 (RSSI)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-sm-6 col-md-4 my-2">
+                        <div class="card rounded shadow border-danger">
+                            <div class="card-body p-2 text-center">
+                                <h1 class="display-4 text-danger font-weight-bolder">-120</h1>
+                                <p class="text-danger font-weight-bolder my-0">Kuat Sinyal A3 (RSSI)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="realtime-graph">
+            <div class="container">
+                <h1>ph A1</h1>
+                <div id="chartdivA1" style="height: 600px;"></div>
+            </div>
+            <div class="container">
+                <h1>ph A2</h1>
+                <div id="chartdivA2" style="height: 600px;"></div>
+            </div>
+            <div class="container">
+                <h1>ph A3</h1>
+                <div id="chartdivA3" style="height: 600px;"></div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer position-relative py-3 bg-dark">
+        <div class="container">
+            <span class="text-light">@2022 Agung - All right reserved</span>
+        </div>
+    </footer>
+
+    <script src="assets/vendor/jquery/jquery.min.js"></script>
+    <script src="assets/vendor/popper/popper.min.js"></script>
+    <script src="assets/vendor/bootstrap/bootstrap.min.js"></script>
+    <script src="assets/vendor/moment/moment.min.js"></script>
+    <script>
+        async function initPhChart(idAlat) {
+            // Get Data
+            var data1 = await $.ajax({
+                url: "getByDate",
+                data: {
+                    id: idAlat,
+                    date: moment().format('YYYY-MM-DD'),
+                    sensor: 'ph'
+                }
+            })
+
+            var phChart = AmCharts.makeChart(`chartdiv${idAlat}`, {
+                type: "serial",
+                theme: "light",
+                mouseWheelZoomEnabled: true,
+                dataDateFormat: "YYYY-MM-DD JJ:NN:SS",
+                valueAxes: [{
+                    id: idAlat,
+                    axisAlpha: 1,
+                    position: "left",
+                    minimum: 0,
+                    maximum: 14,
+                    ignoreAxisWidth: true,
+                    guides: [
+                        {
+                            value: 0,
+                            toValue: 5,
+                            fillColor: "#CC0000",
+                            inside: true,
+                            fillAlpha: 0.2,
+                            lineAlpha: 0
+                        },
+                        {
+                            value: 5,
+                            toValue: 8,
+                            fillColor: "#00CC00",
+                            inside: true,
+                            fillAlpha: 0.2,
+                            lineAlpha: 0
+                        },
+                        {
+                            value: 8,
+                            toValue: 14,
+                            fillColor: "#CC0000",
+                            inside: true,
+                            fillAlpha: 0.2,
+                            lineAlpha: 0
+                        }
+                    ]
+                }],
+                balloon: {
+                    "borderThickness": 1,
+                    "shadowAlpha": 0,
+                    "fillColor": "#FFFFFF"
+                },
+                graphs: [
+                    {
+                        id: `deviceA1${idAlat}`,
+                        balloon: {
+                            "drop": true,
+                            "adjustBorderColor": false,
+                            "color": "#ffffff"
+                        },
+                        bullet: "round",
+                        bulletBorderAlpha: 1,
+                        bulletColor: "#FFFFFF",
+                        bulletSize: 5,
+                        hideBulletsCount: 50,
+                        lineThickness: 2,
+                        title: "PH A1",
+                        useLineColorForBulletBorder: true,
+                        valueField: "nilai",
+                        balloonText: "<span style='font-size:1rem;'>[[value]] <br> [[waktu]]</span>"
+                    }
+                ],
+                chartScrollbar: {
+                    "graph": `deviceA1${idAlat}`,
+                    "oppositeAxis": false,
+                    "offset": 30,
+                    "scrollbarHeight": 80,
+                    "backgroundAlpha": 0,
+                    "selectedBackgroundAlpha": 0.1,
+                    "selectedBackgroundColor": "#000000",
+                    "graphFillAlpha": 0,
+                    "graphLineAlpha": 0.5,
+                    "selectedGraphFillAlpha": 0,
+                    "selectedGraphLineAlpha": 1,
+                    "autoGridCount": true,
+                    "color": "#000000"
+                },
+                "chartCursor": {
+                    "pan": true,
+                    "valueLineEnabled": true,
+                    "valueLineBalloonEnabled": true,
+                    "cursorAlpha": 1,
+                    "cursorColor": "#000000",
+                    "limitToGraph": "g1",
+                    "valueLineAlpha": 0.2,
+                    "valueZoomable": true
+                },
+                valueScrollbar: {
+                    oppositeAxis: false,
+                    offset: 50,
+                    scrollbarHeight: 10
+                },
+                categoryField: "waktu",
+                dataDateFormat: "YYYY-MM-DD JJ:NN:SS",
+                categoryAxis: {
+                    parseDates: true,
+                    minPeriod: "ss",
+                    dashLength: 5,
+                    minorGridEnabled: true,
+                    labelRotation: 90,
+                    dateFormats: [
+                        { "period": "fff", "format": "YYYY-MM-DD JJ:NN:SS" },
+                        { "period": "ss", "format": "YYYY-MM-DD JJ:NN:SS" },
+                        { "period": "mm", "format": "YYYY-MM-DD JJ:NN" },
+                        { "period": "hh", "format": "YYYY-MM-DD JJ:NN" },
+                        { "period": "DD", "format": "YYYY-MM-DD" },
+                        { "period": "WW", "format": "YYYY-MM-DD" },
+                        { "period": "MM", "format": "YYYY-MM" },
+                        { "period": "YYYY", "format": "YYYY" }
+                    ],
+                },
+                "export": {
+                    "enabled": true
+                },
+                dataProvider: data1
+            });
+
+
+            phChart.zoomToIndexes(data1.length - 50, data1.length - 1)
+            setInterval(async function () {
+                dataTambahan = await $.ajax({
+                    url: "getLastRow",
+                    data: {
+                        id: idAlat,
+                        last: data1[data1.length - 1].waktu,
+                        sensor: 'ph'
+                    }
+                });
+                if (dataTambahan.length > 0)
+                    data1 = [...data1, ...dataTambahan];
+                phChart.validateData();
+                phChart.zoomToIndexes(data1.length - 50, data1.length - 1)
+            }, 20000);
+
+
+        }
+
+        initPhChart('A1');
+        initPhChart('A2');
+        initPhChart('A3');
+
+
+
+
+    </script>
+</body>
+
+</html>
