@@ -1,15 +1,12 @@
-from flask import Flask
-from flask import request
-from flask import abort
+from flask import Flask, request, abort, json, render_template
 import mysql.connector
-from flask import json
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='', static_folder='static')
 
 
 @app.route("/")
 def hello_world():
-    return "<p>Hello, World!</p>"
+    return render_template('index.html')
 
 
 @app.route("/getByDate")
@@ -33,12 +30,20 @@ def getByDate():
         sensor=sensor, date=queryDate, idAlat=idAlat))
     myresult = mycursor.fetchall()
 
-    mycursor.close()
-    mydb.close()
+    returnResult = []
+    for x in myresult:
+        print(x['waktu'])
+        x['waktu'] = str(x['waktu'])
+        returnResult.append(x)
 
-    print(queryDate)
+    try:
+        mycursor.close()
+        mydb.close()
+    except:
+        None
+
     return app.response_class(
-        response=json.dumps(myresult),
+        response=json.dumps(returnResult),
         status=200,
         mimetype='application/json'
     )
@@ -48,7 +53,8 @@ def getByDate():
 def getLasRow():
     sensor = request.args.get('sensor')
     idAlat = request.args.get('id')
-    if None or sensor is None or idAlat is None:
+    lastDate = request.args.get('last')
+    if None or sensor is None or idAlat is None or lastDate is None:
         abort(400, 'Missing Parameter')
 
     mydb = mysql.connector.connect(
@@ -60,15 +66,21 @@ def getLasRow():
     )
     mycursor = mydb.cursor(dictionary=True)
 
-    print("SELECT * FROM {sensor} WHERE id_alat = '{idAlat}' ORDER BY waktu DESC".format(sensor=sensor, idAlat=idAlat))
-    mycursor.execute("SELECT * FROM {sensor} WHERE id_alat = '{idAlat}' ORDER BY waktu DESC".format(sensor=sensor, idAlat=idAlat))
-    myresult = mycursor.fetchone()
+    mycursor.execute(
+        "SELECT * FROM {sensor} WHERE id_alat = '{idAlat}' AND waktu > '{lastDate}' ORDER BY waktu ASC".format(sensor=sensor, idAlat=idAlat, lastDate=lastDate))
+    myresult = mycursor.fetchall()
 
-    # mycursor.close()
-    # mydb.close()
-    
-    if mydb:
+    returnResult = []
+    for x in myresult:
+        print(x['waktu'])
+        x['waktu'] = str(x['waktu'])
+        returnResult.append(x)
+
+    try:
+        mycursor.close()
         mydb.close()
+    except:
+        None
 
     return app.response_class(
         response=json.dumps(myresult),
@@ -77,4 +89,4 @@ def getLasRow():
     )
 
 
-app.run(port=8080,  debug=True)
+app.run(port=8080,  debug=True, load_dotenv=True)
