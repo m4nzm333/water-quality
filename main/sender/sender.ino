@@ -28,9 +28,12 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RST);
 //433E6 for Asia
 //866E6 for Europe
 //915E6 for North America
-#define BAND 433E6
+#define BAND 915E6
+#define TXPOWER 20
+#define SIGNAL_BANDWIDTH 7.8E3
+#define SPREADING_FACTOR 12
 
-const char *deviceId = "A2";
+const char *deviceId = "A3";
 
 const float ADC_RESOLUTION = 4096.0;
 const int SAMPLE_NUM = 10;
@@ -77,6 +80,9 @@ void setup()
   SPI.begin(SCK, MISO, MOSI, SS);
   //setup LoRa transceiver module
   LoRa.setPins(SS, RST, DIO0);
+  LoRa.setTxPower(TXPOWER);
+  LoRa.setSignalBandwidth(SIGNAL_BANDWIDTH);
+  LoRa.setSpreadingFactor(SPREADING_FACTOR);
   if (!LoRa.begin(BAND)) {
     Serial.println("Starting LoRa failed!");
     while (1);
@@ -91,7 +97,7 @@ float ph (float x) {
 void phMeasure(){
   
   float total = 0;
-  int totalSample = 50;
+  int totalSample = 25;
   int baseDelay = 200;
   for(int i = 0; i < totalSample; i++){
     phVoltage = (3.3 / ADC_RESOLUTION) * analogRead(PIN_PH);
@@ -129,6 +135,8 @@ void loop()
   display.print("Lora Sender");
   display.setCursor(0,10);
   display.print(packetCounter);
+  display.setCursor(60,10);
+  display.print(deviceId);
   display.setCursor(0,20);
   display.print("----------------");
   // Tampilkan ph di led

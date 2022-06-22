@@ -1,7 +1,8 @@
 {
     "board": "esp32:esp32:ttgo-lora32-v1",
     "configuration": "FlashFreq=80,UploadSpeed=921600,DebugLevel=none",
-    "port": "COM5",
-    "sketch": "main\\sender\\sender.ino",
-    "programmer": "ArduinoISP"
+    "port": "COM3",
+    "sketch": "main\\receiver\\receiver.ino",
+    "programmer": "ArduinoISP",
+    "output": "build"
 }
