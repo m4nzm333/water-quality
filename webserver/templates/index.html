@@ -46,7 +46,7 @@
         <section class="card-counter mt-5">
             <div class="container-fluid">
                 <div class="row">
-                    <div class='col-sm-6'>
+                    <div class='col-12 col-md-6'>
                         <div class="form-group">
                             <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
                                 <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" id="tanggal" />
@@ -56,7 +56,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-12 col-md-6">
                         <button id="btnFilter" class="btn btn-primary"><i class="fa fa-filter"></i> Terapkan</button>
                     </div>
                 </div>
@@ -67,31 +67,31 @@
         <section class="realtime-graph">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-12 col-md-12">
                         <h1>ph A1</h1>
                         <div id="chartPhA1" style="height: 600px;"></div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-12 col-md-12">
                         <h1>Turbidity A1 (NTU)</h1>
                         <div id="chartTurbidityA1" style="height: 600px;"></div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-12 col-md-12">
                         <h1>ph A2</h1>
                         <div id="chartPhA2" style="height: 600px;"></div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-12 col-md-12">
                         <h1>Turbidity A2 (NTU)</h1>
                         <div id="chartTurbidityA2" style="height: 600px;"></div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-12 col-md-12">
                         <h1>ph A3</h1>
                         <div id="chartPhA3" style="height: 600px;"></div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-12 col-md-12">
                         <h1>Turbidity A3 (NTU)</h1>
                         <div id="chartTurbidityA3" style="height: 600px;"></div>
                     </div>
@@ -254,7 +254,7 @@
             });
 
 
-            phChart.zoomToIndexes(data1.length - 50, data1.length - 1)
+            phChart.zoomToIndexes(data1.length - 10, data1.length - 1)
             setInterval(async function () {
                 dataTambahan = await $.ajax({
                     url: "getLastRow",
@@ -267,7 +267,7 @@
                 if (dataTambahan.length > 0)
                     data1 = data1.concat(dataTambahan);
                 phChart.validateData();
-                phChart.zoomToIndexes(data1.length - 50, data1.length - 1)
+                phChart.zoomToIndexes(data1.length - 10, data1.length - 1)
             }, 20000);
         }
 
@@ -394,7 +394,7 @@
             });
 
 
-            phChart.zoomToIndexes(data1.length - 50, data1.length - 1)
+            phChart.zoomToIndexes(data1.length - 10, data1.length - 1)
             setInterval(async function () {
                 if ($("#tanggal").val() == moment().format('YYYY-MM-DD')) {
                     dataTambahan = await $.ajax({
@@ -408,7 +408,7 @@
                     if (dataTambahan.length > 0)
                         data1 = [...data1, ...dataTambahan];
                     phChart.validateData();
-                    phChart.zoomToIndexes(data1.length - 50, data1.length - 1)
+                    phChart.zoomToIndexes(data1.length - 10, data1.length - 1)
                 }
             }, 20000);
         }
