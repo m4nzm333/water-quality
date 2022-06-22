@@ -32,7 +32,6 @@ def getByDate():
 
     returnResult = []
     for x in myresult:
-        print(x['waktu'])
         x['waktu'] = str(x['waktu'])
         returnResult.append(x)
 
@@ -72,7 +71,6 @@ def getLasRow():
 
     returnResult = []
     for x in myresult:
-        print(x['waktu'])
         x['waktu'] = str(x['waktu'])
         returnResult.append(x)
 
@@ -89,4 +87,4 @@ def getLasRow():
     )
 
 
-app.run(port=8080,  debug=True, load_dotenv=True)
+app.run(host="0.0.0.0", port=8080,  debug=True, load_dotenv=True)
