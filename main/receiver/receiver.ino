@@ -23,7 +23,7 @@
 //433E6 for Asia
 //866E6 for Europe
 //915E6 for North America
-#define BAND 433E6
+#define BAND 915E6
 #define TXPOWER 20
 #define SIGNAL_BANDWIDTH 7.8E3
 #define SPREADING_FACTOR 12
