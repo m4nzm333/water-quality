@@ -1,15 +1,29 @@
 A1
-const float ph1x = 2.90; // Ganti sesuai voltage pada ph = 4.01
+const char *deviceId = "A1";
+// Kalibrasi saat pengukuran
+const float ph1x = 2.83; // Ganti sesuai voltage pada ph = 4.01
 const float ph1y = 4.01;
-const float ph2x = 2.20; // Ganti sesuai voltage pada ph = 1.49
+const float ph2x = 2.15; // Ganti sesuai voltage pada ph = 1.49
 const float ph2y = 9.18;
 float tu1y = 3000;
 float tu2x = 1.39;
 
-A3
-const float ph1x = 3.15; // Ganti sesuai voltage pada ph = 4.01
+A2
+const char *deviceId = "A2";
+// Kalibrasi saat pengukuran
+const float ph1x = 2.87; // Ganti sesuai voltage pada ph = 4.01
 const float ph1y = 4.01;
-const float ph2x = 2.33; // Ganti sesuai voltage pada ph = 1.49
+const float ph2x = 2.20; // Ganti sesuai voltage pada ph = 1.49
+const float ph2y = 9.18;
+float tu1y = 3000;
+float tu2x = 1.31;
+
+A3
+const char *deviceId = "A3";
+// Kalibrasi saat pengukuran
+const float ph1x = 3.02; // Ganti sesuai voltage pada ph = 4.01
+const float ph1y = 4.01;
+const float ph2x = 2.23; // Ganti sesuai voltage pada ph = 1.49
 const float ph2y = 9.18;
 float tu1y = 3000;
 float tu2x = 1.31;

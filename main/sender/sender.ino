@@ -33,18 +33,18 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RST);
 #define SIGNAL_BANDWIDTH 7.8E3
 #define SPREADING_FACTOR 12
 
-const char *deviceId = "A3";
-
 const float ADC_RESOLUTION = 4096.0;
 const int SAMPLE_NUM = 10;
 // Init pH
 const int PIN_PH = 36; 
 // Kalibrasi saat short
 const float BASE_PH = 1.53;
+
+const char *deviceId = "A3";
 // Kalibrasi saat pengukuran
-const float ph1x = 3.15; // Ganti sesuai voltage pada ph = 4.01
+const float ph1x = 3.02; // Ganti sesuai voltage pada ph = 4.01
 const float ph1y = 4.01;
-const float ph2x = 2.33; // Ganti sesuai voltage pada ph = 1.49
+const float ph2x = 2.23; // Ganti sesuai voltage pada ph = 1.49
 const float ph2y = 9.18;
 // Var util
 float phVoltage;

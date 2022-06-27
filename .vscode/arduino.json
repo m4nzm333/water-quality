@@ -1,6 +1,6 @@
 {
-    "board": "esp32:esp32:ttgo-lora32-v1",
-    "configuration": "FlashFreq=80,UploadSpeed=921600,DebugLevel=none",
+    "board": "esp32:esp32:ttgo-lora32",
+    "configuration": "Revision=TTGO_LoRa32_V1,FlashFreq=80,UploadSpeed=921600,DebugLevel=none",
     "port": "COM3",
     "sketch": "main\\sender\\sender.ino",
     "programmer": "ArduinoISP",
