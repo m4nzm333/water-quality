@@ -16,8 +16,8 @@ mydb = mysql.connector.connect(
     database="waterquality"
 )
 mycursor = mydb.cursor()
-mycursor.execute("CREATE TABLE IF NOT EXISTS ph ( id_data INT AUTO_INCREMENT PRIMARY KEY, id_alat VARCHAR(3), waktu TIMESTAMP DEFAULT CURRENT_TIMESTAMP, nilai FLOAT);")
-mycursor.execute("CREATE TABLE IF NOT EXISTS kekeruhan ( id_data INT AUTO_INCREMENT PRIMARY KEY, id_alat VARCHAR(3), waktu TIMESTAMP DEFAULT CURRENT_TIMESTAMP, nilai INT);")
+mycursor.execute("CREATE TABLE IF NOT EXISTS ph ( id_data INT AUTO_INCREMENT PRIMARY KEY, id_alat VARCHAR(6), waktu TIMESTAMP DEFAULT CURRENT_TIMESTAMP, nilai FLOAT);")
+mycursor.execute("CREATE TABLE IF NOT EXISTS kekeruhan ( id_data INT AUTO_INCREMENT PRIMARY KEY, id_alat VARCHAR(6), waktu TIMESTAMP DEFAULT CURRENT_TIMESTAMP, nilai INT);")
 mycursor.close()
 
 

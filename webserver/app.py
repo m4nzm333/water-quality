@@ -20,7 +20,7 @@ def getByDate():
     mydb = mysql.connector.connect(
         host="localhost",
         user="root",
-        password="",
+        password="password",
         port="3306",
         database="waterquality"
     )
