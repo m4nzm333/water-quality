@@ -1,3 +1,7 @@
+# ==========
+# GENERATOR DATA (Jangan ditampilkan)
+# ==========
+
 from datetime import datetime, timedelta
 from time import sleep
 from random import randint, uniform
@@ -75,17 +79,17 @@ if __name__ == "__main__":
     )
     mycursor.close()
     # SQL Generated Data to DB
-    arrayAllData = sorted(arrayAllData, key=lambda d: d['waktu']) 
+    arrayAllData = sorted(arrayAllData, key=lambda d: d["waktu"])
     for rowData in arrayAllData:
         mycursor = mydb.cursor()
         mycursor.execute(
             "INSERT INTO ph (id_alat, nilai, waktu) VALUES ('{idAlat}', {value}, '{waktu}')".format(
-                idAlat=rowData['idAlat'], value=rowData['ph'], waktu=rowData['waktu']
+                idAlat=rowData["idAlat"], value=rowData["ph"], waktu=rowData["waktu"]
             )
         )
         mycursor.execute(
             "INSERT INTO kekeruhan (id_alat, nilai, waktu) VALUES ('{idAlat}', {value}, '{waktu}')".format(
-                idAlat=rowData['idAlat'], value=0, waktu=rowData['waktu']
+                idAlat=rowData["idAlat"], value=0, waktu=rowData["waktu"]
             )
         )
         mydb.commit()
