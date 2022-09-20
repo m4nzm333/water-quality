@@ -11,7 +11,7 @@ ser = serial.Serial("/dev/ttyS0", 9600)
 mydb = mysql.connector.connect(
     host="localhost",
     user="root",
-    password="",
+    password="password",
     port="3306",
     database="waterquality"
 )
