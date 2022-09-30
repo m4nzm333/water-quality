@@ -43,7 +43,7 @@ def generateData(idAlat, phMin, phMax, turbidityMin, turbidityMax):
             {
                 "idAlat": idAlat,
                 "ph": randomPh,
-                "kekeruhan": 0,
+                "kekeruhan": randomTurbidity,
                 "waktu": timeCurrentString,
             }
         )
