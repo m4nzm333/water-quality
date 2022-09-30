@@ -64,7 +64,11 @@ def getLasRow():
         abort(400, "Missing Parameter")
 
     mydb = mysql.connector.connect(
-        host="localhost", user="root", password="", port="3306", database="waterquality"
+        host="localhost",
+        user="root",
+        password="password",
+        port="3306",
+        database="waterquality",
     )
     mycursor = mydb.cursor(dictionary=True)
 
