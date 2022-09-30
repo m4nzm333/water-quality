@@ -9,30 +9,31 @@ import mysql.connector
 from threading import Thread
 
 # Init Generator
-timeStart = "2022-07-02 16:00:00.000000"
-timeEnd = "2022-07-02 17:00:00.000000"
+timeStart = "2022-09-28 16:00:00.000000"
+timeEnd = "2022-09-28 17:00:00.000000"
 timeStartObj = datetime.strptime(timeStart, "%Y-%m-%d %H:%M:%S.%f")
 timeEndObj = datetime.strptime(timeEnd, "%Y-%m-%d %H:%M:%S.%f")
 
 arrayAllData = []
 
 
-def generateData(idAlat, phMin, phMax):
+def generateData(idAlat, phMin, phMax, turbidityMin, turbidityMax):
 
     timeCurrent = timeStartObj
     while timeEndObj > timeCurrent:
         randomDelay = randint(5000000, 6000000)
         randomPh = round(uniform(phMin, phMax), 2)
+        randomTurbidity = round(uniform(turbidityMin, turbidityMax), 0)
         timeCurrent = timeCurrent + timedelta(microseconds=randomDelay)
         timeCurrentString = timeCurrent.strftime("%Y-%m-%d %H:%M:%S.%f")
         arrayData = [
             idAlat,
             "{:.2f}".format(round(randomPh, 3)),
-            str(0),
+            str(int(randomTurbidity)),
             timeCurrentString,
         ]
         # Add to File
-        generatedFile = open("generatedData-{idAlat}.csv".format(idAlat=idAlat), "a")
+        generatedFile = open("./generatedData-{idAlat}.csv".format(idAlat=idAlat), "a")
         stringData = ";".join(arrayData)
         generatedFile.write(stringData)
         generatedFile.write("\n")
@@ -50,9 +51,9 @@ def generateData(idAlat, phMin, phMax):
 
 if __name__ == "__main__":
 
-    thread1 = Thread(target=generateData, args=("A1", 7.88, 8.24))
-    thread2 = Thread(target=generateData, args=("A2", 7.94, 8.15))
-    thread3 = Thread(target=generateData, args=("A3", 7.75, 7.98))
+    thread1 = Thread(target=generateData, args=("A1", 7.88, 8.24, 50, 200))
+    thread2 = Thread(target=generateData, args=("A2", 7.94, 8.15, 150, 250))
+    thread3 = Thread(target=generateData, args=("A3", 7.75, 7.98, 100, 200))
     thread1.start()
     thread2.start()
     thread3.start()
