@@ -90,7 +90,7 @@ if __name__ == "__main__":
         )
         mycursor.execute(
             "INSERT INTO kekeruhan (id_alat, nilai, waktu) VALUES ('{idAlat}', {value}, '{waktu}')".format(
-                idAlat=rowData["idAlat"], value=0, waktu=rowData["waktu"]
+                idAlat=rowData["idAlat"], value=rowData["kekeruhan"], waktu=rowData["waktu"]
             )
         )
         mydb.commit()
